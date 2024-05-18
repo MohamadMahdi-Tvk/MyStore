@@ -1,7 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using MyStore.Application.Interfaces.Context;
+using MyStore.Persistence.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllersWithViews();
+
+string connectionString = "Data Source=.; Initial Catalog = MyStoreDb; Integrated Security = true";
+builder.Services.AddEntityFrameworkSqlServer().AddDbContext<DataBaseContext>(option => option.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IDataBaseContext, DataBaseContext>();
 
 var app = builder.Build();
 

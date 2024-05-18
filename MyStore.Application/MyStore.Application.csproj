@@ -11,4 +11,13 @@
     <ProjectReference Include="..\MyStore.Domain\MyStore.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Users\Commands\" />
+    <Folder Include="Services\Users\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.30" />
+  </ItemGroup>
+
 </Project>
