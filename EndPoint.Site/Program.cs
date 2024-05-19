@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyStore.Application.Interfaces.Context;
+using MyStore.Application.Interfaces.FacadPattern;
+using MyStore.Application.Services.Users.FacadPattern;
 using MyStore.Persistence.Context;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,8 @@ string connectionString = "Data Source=.; Initial Catalog = MyStoreDb; Integrate
 builder.Services.AddEntityFrameworkSqlServer().AddDbContext<DataBaseContext>(option => option.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IDataBaseContext, DataBaseContext>();
+
+builder.Services.AddScoped<IUserFacad, UserFacad>();
 
 var app = builder.Build();
 
