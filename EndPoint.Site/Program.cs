@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MyStore.Application.Interfaces.Context;
 using MyStore.Application.Interfaces.FacadPattern;
+using MyStore.Application.Services.Products.FacadPattern;
 using MyStore.Application.Services.Users.FacadPattern;
 using MyStore.Persistence.Context;
 
@@ -15,6 +17,18 @@ builder.Services.AddEntityFrameworkSqlServer().AddDbContext<DataBaseContext>(opt
 builder.Services.AddScoped<IDataBaseContext, DataBaseContext>();
 
 builder.Services.AddScoped<IUserFacad, UserFacad>();
+builder.Services.AddScoped<IProductFacad, ProductFacad>();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie(options =>
+{
+    options.LoginPath = new PathString("/");
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
+});
 
 var app = builder.Build();
 
@@ -31,6 +45,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",
