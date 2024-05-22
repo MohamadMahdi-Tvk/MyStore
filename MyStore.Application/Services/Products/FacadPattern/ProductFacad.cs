@@ -7,6 +7,7 @@ using MyStore.Application.Services.Products.Queries.GetAllCategories;
 using MyStore.Application.Services.Products.Queries.GetCategories;
 using MyStore.Application.Services.Products.Queries.GetProductDetailForAdmin;
 using MyStore.Application.Services.Products.Queries.GetProductForAdmin;
+using MyStore.Application.Services.Products.Queries.GetProductForSite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +81,15 @@ namespace MyStore.Application.Services.Products.FacadPattern
             get
             {
                 return _getProductDetailForAdminService = _getProductDetailForAdminService ?? new GetProductDetailForAdminService(_context);
+            }
+        }
+
+        private IGetProductForSiteService _getProductForSiteService;
+        public IGetProductForSiteService GetProductForSiteService
+        {
+            get
+            {
+                return _getProductForSiteService = _getProductForSiteService ?? new GetProductForSiteService(_context);
             }
         }
     }
