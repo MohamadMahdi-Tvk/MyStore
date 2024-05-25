@@ -6,6 +6,7 @@ using MyStore.Application.Services.Products.Commands.AddNewProduct;
 using MyStore.Application.Services.Products.Queries.GetAllCategories;
 using MyStore.Application.Services.Products.Queries.GetCategories;
 using MyStore.Application.Services.Products.Queries.GetProductDetailForAdmin;
+using MyStore.Application.Services.Products.Queries.GetProductDetailForSite;
 using MyStore.Application.Services.Products.Queries.GetProductForAdmin;
 using MyStore.Application.Services.Products.Queries.GetProductForSite;
 using System;
@@ -90,6 +91,15 @@ namespace MyStore.Application.Services.Products.FacadPattern
             get
             {
                 return _getProductForSiteService = _getProductForSiteService ?? new GetProductForSiteService(_context);
+            }
+        }
+
+        private IGetProductDetailForSiteService _getProductDetailForSiteService;
+        public IGetProductDetailForSiteService GetProductDetailForSiteService
+        {
+            get
+            {
+                return _getProductDetailForSiteService = _getProductDetailForSiteService ?? new GetProductDetailForSiteService(_context);
             }
         }
     }
