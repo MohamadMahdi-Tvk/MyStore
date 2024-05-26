@@ -7,22 +7,30 @@ namespace MyStore.Application.Services.Products.Queries.GetProductForSite
 {
     public class GetProductForSiteService : IGetProductForSiteService
     {
-        private readonly IDataBaseContext _context;
 
+        private readonly IDataBaseContext _context;
         public GetProductForSiteService(IDataBaseContext context)
         {
             _context = context;
         }
-
-        public ResultDto<ResultProductForSiteDto> Execute(int Page)
+        public ResultDto<ResultProductForSiteDto> Execute(string SearchKey, int Page, long? CatId)
         {
             int totalRow = 0;
-            var product = _context.Products
-                .Include(p => p.ProductImages)
-                .ToPaged(Page, 5, out totalRow);
+            var productQuery = _context.Products
+                .Include(p => p.ProductImages).AsQueryable();
+
+            if (CatId != null)
+            {
+                productQuery = productQuery.Where(p => p.CategoryId == CatId || p.Category.ParentCategoryId == CatId).AsQueryable();
+            }
+            if (!string.IsNullOrWhiteSpace(SearchKey))
+            {
+                productQuery = productQuery.Where(p => p.Name.Contains(SearchKey) || p.Brand.Contains(SearchKey)).AsQueryable();
+            }
+
+            var product = productQuery.ToPaged(Page, 5, out totalRow);
 
             Random rd = new Random();
-
             return new ResultDto<ResultProductForSiteDto>
             {
                 Data = new ResultProductForSiteDto
@@ -37,7 +45,7 @@ namespace MyStore.Application.Services.Products.Queries.GetProductForSite
                         Price = p.Price
                     }).ToList(),
                 },
-                IsSuccess = true
+                IsSuccess = true,
             };
         }
     }

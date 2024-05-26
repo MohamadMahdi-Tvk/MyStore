@@ -9,6 +9,6 @@ namespace MyStore.Application.Services.Products.Queries.GetProductForSite
 {
     public interface IGetProductForSiteService
     {
-        ResultDto<ResultProductForSiteDto> Execute(int Page);
+        ResultDto<ResultProductForSiteDto> Execute(string SearchKey, int Page, long? CatId);
     }
 }

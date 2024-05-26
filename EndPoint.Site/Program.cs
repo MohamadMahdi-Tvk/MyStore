@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MyStore.Application.Interfaces.Context;
 using MyStore.Application.Interfaces.FacadPattern;
+using MyStore.Application.Services.Common.Queries.GetCategory;
+using MyStore.Application.Services.Common.Queries.GetMenuItem;
 using MyStore.Application.Services.Products.FacadPattern;
 using MyStore.Application.Services.Users.FacadPattern;
 using MyStore.Persistence.Context;
@@ -18,6 +20,9 @@ builder.Services.AddScoped<IDataBaseContext, DataBaseContext>();
 
 builder.Services.AddScoped<IUserFacad, UserFacad>();
 builder.Services.AddScoped<IProductFacad, ProductFacad>();
+
+builder.Services.AddScoped<IGetMenuItemService, GetMenuItemService>();
+builder.Services.AddScoped<IGetCategoryService, GetCategoryService>();
 
 builder.Services.AddAuthentication(options =>
 {
