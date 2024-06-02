@@ -3,17 +3,19 @@ using MyStore.Common.Dto;
 
 namespace MyStore.Application.Services.Users.Commands.UserStatusChange
 {
-    public class UserStatusChangeService : IUserStatusChangeService
+    public class UserSatusChangeService : IUserStatusChangeService
     {
         private readonly IDataBaseContext _context;
-        public UserStatusChangeService(IDataBaseContext context)
+
+
+        public UserSatusChangeService(IDataBaseContext context)
         {
             _context = context;
         }
-        public ResultDto Execute(long userId)
-        {
-            var user = _context.Users.Find(userId);
 
+        public ResultDto Execute(long UserId)
+        {
+            var user = _context.Users.Find(UserId);
             if (user == null)
             {
                 return new ResultDto
@@ -25,13 +27,11 @@ namespace MyStore.Application.Services.Users.Commands.UserStatusChange
 
             user.IsActive = !user.IsActive;
             _context.SaveChanges();
-
-            string userState = user.IsActive == true ? "فعال" : "غیرفعال";
-
-            return new ResultDto
+            string userstate = user.IsActive == true ? "فعال" : "غیر فعال";
+            return new ResultDto()
             {
                 IsSuccess = true,
-                Message = $"کاربر {userState} شد"
+                Message = $"کاربر با موفقیت {userstate} شد!",
             };
         }
     }

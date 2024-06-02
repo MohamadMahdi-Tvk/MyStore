@@ -1,7 +1,7 @@
 ﻿using MyStore.Application.Interfaces.Context;
 using MyStore.Common;
 using MyStore.Common.Dto;
-using MyStore.Domain.Entities.User;
+using MyStore.Domain.Entities.Users;
 using System.Text.RegularExpressions;
 
 namespace MyStore.Application.Services.Users.Commands.RegisterUser
@@ -9,6 +9,7 @@ namespace MyStore.Application.Services.Users.Commands.RegisterUser
     public class RegisterUserService : IRegisterUserService
     {
         private readonly IDataBaseContext _context;
+
         public RegisterUserService(IDataBaseContext context)
         {
             _context = context;

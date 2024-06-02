@@ -45,4 +45,5 @@ namespace MyStore.Application.Services.Products.Queries.GetProductForAdmin
             };
         }
     }
+
 }

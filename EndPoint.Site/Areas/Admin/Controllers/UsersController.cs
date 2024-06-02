@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MyStore.Application.Interfaces.FacadPattern;
 using MyStore.Application.Services.Users.Commands.EditUser;
@@ -8,6 +9,7 @@ using MyStore.Application.Services.Users.Queries.GetUsers;
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly IUserFacad _userFacad;

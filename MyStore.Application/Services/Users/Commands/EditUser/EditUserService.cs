@@ -14,7 +14,6 @@ namespace MyStore.Application.Services.Users.Commands.EditUser
         public ResultDto Execute(RequestEditUserDto request)
         {
             var user = _context.Users.Find(request.UserId);
-
             if (user == null)
             {
                 return new ResultDto
@@ -25,14 +24,14 @@ namespace MyStore.Application.Services.Users.Commands.EditUser
             }
 
             user.FullName = request.FullName;
-
             _context.SaveChanges();
 
-            return new ResultDto
+            return new ResultDto()
             {
                 IsSuccess = true,
                 Message = "ویرایش کاربر انجام شد"
             };
+
         }
     }
 }

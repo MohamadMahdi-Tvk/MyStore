@@ -10,6 +10,8 @@ namespace MyStore.Application.Services.Users.Queries.GetUsers
         {
             _context = context;
         }
+
+
         public ResultGetUserDto Execute(RequestGetUserDto request)
         {
             var users = _context.Users.AsQueryable();

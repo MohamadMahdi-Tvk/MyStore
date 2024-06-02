@@ -10,19 +10,23 @@ namespace MyStore.Application.Services.Products.Commands.AddNewProduct
     {
         private readonly IDataBaseContext _context;
         private readonly IHostingEnvironment _environment;
+
         public AddNewProductService(IDataBaseContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _environment = hostingEnvironment;
         }
 
+
         public ResultDto Execute(RequestAddNewProductDto request)
         {
+
             try
             {
+
                 var category = _context.Categories.Find(request.CategoryId);
 
-                Product product = new Product
+                Product product = new Product()
                 {
                     Brand = request.Brand,
                     Description = request.Description,
@@ -30,22 +34,18 @@ namespace MyStore.Application.Services.Products.Commands.AddNewProduct
                     Price = request.Price,
                     Inventory = request.Inventory,
                     Category = category,
-                    Displayed = request.Displayed
+                    Displayed = request.Displayed,
                 };
-
                 _context.Products.Add(product);
 
-
                 List<ProductImages> productImages = new List<ProductImages>();
-
                 foreach (var item in request.Images)
                 {
                     var uploadedResult = UploadFile(item);
-
                     productImages.Add(new ProductImages
                     {
                         Product = product,
-                        Src = uploadedResult.FileNameAddress
+                        Src = uploadedResult.FileNameAddress,
                     });
                 }
 
@@ -53,17 +53,15 @@ namespace MyStore.Application.Services.Products.Commands.AddNewProduct
 
 
                 List<ProductFeatures> productFeatures = new List<ProductFeatures>();
-
                 foreach (var item in request.Features)
                 {
                     productFeatures.Add(new ProductFeatures
                     {
                         DisplayName = item.DisplayName,
                         Value = item.Value,
-                        Product = product
+                        Product = product,
                     });
                 }
-
                 _context.ProductFeatures.AddRange(productFeatures);
 
                 _context.SaveChanges();
@@ -71,18 +69,19 @@ namespace MyStore.Application.Services.Products.Commands.AddNewProduct
                 return new ResultDto
                 {
                     IsSuccess = true,
-                    Message = "محصول با موفقیت اضافه شد"
+                    Message = "محصول با موفقیت به محصولات فروشگاه اضافه شد",
                 };
             }
-
             catch (Exception ex)
             {
+
                 return new ResultDto
                 {
                     IsSuccess = false,
-                    Message = "متاسفانه خطایی رخ داده است"
+                    Message = "خطا رخ داد ",
                 };
             }
+
         }
 
 
@@ -90,43 +89,37 @@ namespace MyStore.Application.Services.Products.Commands.AddNewProduct
         {
             if (file != null)
             {
-                string folder = $@"Images\ProductImages\";
-
+                string folder = $@"images\ProductImages\";
                 var uploadsRootFolder = Path.Combine(_environment.WebRootPath, folder);
-
                 if (!Directory.Exists(uploadsRootFolder))
                 {
                     Directory.CreateDirectory(uploadsRootFolder);
                 }
 
+
                 if (file == null || file.Length == 0)
                 {
-                    return new UploadDto
+                    return new UploadDto()
                     {
                         Status = false,
-                        FileNameAddress = ""
+                        FileNameAddress = "",
                     };
                 }
 
                 string fileName = DateTime.Now.Ticks.ToString() + file.FileName;
-
                 var filePath = Path.Combine(uploadsRootFolder, fileName);
-
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     file.CopyTo(fileStream);
                 }
 
-                return new UploadDto
+                return new UploadDto()
                 {
                     FileNameAddress = folder + fileName,
-                    Status = true
+                    Status = true,
                 };
             }
-
             return null;
         }
-
-
     }
 }

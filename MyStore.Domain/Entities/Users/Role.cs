@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyStore.Domain.Entities.User
+namespace MyStore.Domain.Entities.Users
 {
     public class Role : BaseEntity
     {

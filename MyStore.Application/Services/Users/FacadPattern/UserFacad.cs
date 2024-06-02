@@ -88,7 +88,7 @@ namespace MyStore.Application.Services.Users.FacadPattern
         {
             get
             {
-                return _userStatusChangeService = _userStatusChangeService ?? new UserStatusChangeService(_context);
+                return _userStatusChangeService = _userStatusChangeService ?? new UserSatusChangeService(_context);
             }
         }
     }

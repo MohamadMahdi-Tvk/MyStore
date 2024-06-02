@@ -12,35 +12,34 @@ namespace MyStore.Application.Services.Products.Commands.AddNewCategory
             _context = context;
         }
 
-        private Category GetParent(long? parentId)
+        public ResultDto Execute(long? ParentId, string Name)
         {
-            return _context.Categories.Find(parentId);
-        }
-
-        public ResultDto Execute(long? parentId, string name)
-        {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(Name))
             {
-                return new ResultDto
+                return new ResultDto()
                 {
                     IsSuccess = false,
-                    Message = "نام دسته بندی را وارد نمائید"
+                    Message = "نام دسته بندی را وارد نمایید",
                 };
             }
-            Category category = new Category
-            {
-                Name = name,
-                ParentCategory = GetParent(parentId)
-            };
 
+            Category category = new Category()
+            {
+                Name = Name,
+                ParentCategory = GetParent(ParentId)
+            };
             _context.Categories.Add(category);
             _context.SaveChanges();
-
-            return new ResultDto
+            return new ResultDto()
             {
                 IsSuccess = true,
-                Message = "دسته بندی با موفقیت اضافه شد"
+                Message = "دسته بندی با موفقیت اضافه شد",
             };
+        }
+
+        private Category GetParent(long? ParentId)
+        {
+            return _context.Categories.Find(ParentId);
         }
     }
 }
