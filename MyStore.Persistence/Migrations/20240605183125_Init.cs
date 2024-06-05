@@ -365,17 +365,17 @@ namespace MyStore.Persistence.Migrations
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "InsertTime", "IsRemoved", "Name", "RemoveTime", "UpdateTime" },
-                values: new object[] { 1L, new DateTime(2024, 6, 3, 0, 33, 11, 889, DateTimeKind.Local).AddTicks(9302), false, "Admin", null, null });
+                values: new object[] { 1L, new DateTime(2024, 6, 5, 22, 1, 24, 914, DateTimeKind.Local).AddTicks(5180), false, "Admin", null, null });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "InsertTime", "IsRemoved", "Name", "RemoveTime", "UpdateTime" },
-                values: new object[] { 2L, new DateTime(2024, 6, 3, 0, 33, 11, 889, DateTimeKind.Local).AddTicks(9334), false, "Operator", null, null });
+                values: new object[] { 2L, new DateTime(2024, 6, 5, 22, 1, 24, 914, DateTimeKind.Local).AddTicks(5225), false, "Operator", null, null });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "InsertTime", "IsRemoved", "Name", "RemoveTime", "UpdateTime" },
-                values: new object[] { 3L, new DateTime(2024, 6, 3, 0, 33, 11, 889, DateTimeKind.Local).AddTicks(9340), false, "Customer", null, null });
+                values: new object[] { 3L, new DateTime(2024, 6, 5, 22, 1, 24, 914, DateTimeKind.Local).AddTicks(5234), false, "Customer", null, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_CartId",

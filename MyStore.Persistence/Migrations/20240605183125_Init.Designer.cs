@@ -12,7 +12,7 @@ using MyStore.Persistence.Context;
 namespace MyStore.Persistence.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20240602210312_Init")]
+    [Migration("20240605183125_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -494,21 +494,21 @@ namespace MyStore.Persistence.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2024, 6, 3, 0, 33, 11, 889, DateTimeKind.Local).AddTicks(9302),
+                            InsertTime = new DateTime(2024, 6, 5, 22, 1, 24, 914, DateTimeKind.Local).AddTicks(5180),
                             IsRemoved = false,
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2024, 6, 3, 0, 33, 11, 889, DateTimeKind.Local).AddTicks(9334),
+                            InsertTime = new DateTime(2024, 6, 5, 22, 1, 24, 914, DateTimeKind.Local).AddTicks(5225),
                             IsRemoved = false,
                             Name = "Operator"
                         },
                         new
                         {
                             Id = 3L,
-                            InsertTime = new DateTime(2024, 6, 3, 0, 33, 11, 889, DateTimeKind.Local).AddTicks(9340),
+                            InsertTime = new DateTime(2024, 6, 5, 22, 1, 24, 914, DateTimeKind.Local).AddTicks(5234),
                             IsRemoved = false,
                             Name = "Customer"
                         });
