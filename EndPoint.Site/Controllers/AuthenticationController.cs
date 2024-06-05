@@ -73,12 +73,12 @@ namespace EndPoint.Site.Controllers
             if (signeupResult.IsSuccess == true)
             {
                 var claims = new List<Claim>()
-                {
-                    new Claim(ClaimTypes.NameIdentifier,signeupResult.Data.UserId.ToString()),
-                    new Claim(ClaimTypes.Email, request.Email),
-                    new Claim(ClaimTypes.Name, request.FullName),
-                    new Claim(ClaimTypes.Role, "Customer"),
-                };
+            {
+                new Claim(ClaimTypes.NameIdentifier,signeupResult.Data.UserId.ToString()),
+                new Claim(ClaimTypes.Email, request.Email),
+                new Claim(ClaimTypes.Name, request.FullName),
+                new Claim(ClaimTypes.Role, "Customer"),
+            };
 
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -90,7 +90,6 @@ namespace EndPoint.Site.Controllers
                 HttpContext.SignInAsync(principal, properties);
 
             }
-
             return Json(signeupResult);
         }
 
@@ -107,12 +106,17 @@ namespace EndPoint.Site.Controllers
             if (signupResult.IsSuccess == true)
             {
                 var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier,signupResult.Data.UserId.ToString()),
+                new Claim(ClaimTypes.Email, Email),
+                new Claim(ClaimTypes.Name, signupResult.Data.Name),
+
+            };
+                foreach (var item in signupResult.Data.Roles)
                 {
-                    new Claim(ClaimTypes.NameIdentifier,signupResult.Data.UserId.ToString()),
-                    new Claim(ClaimTypes.Email, Email),
-                    new Claim(ClaimTypes.Name, signupResult.Data.Name),
-                    new Claim(ClaimTypes.Role, signupResult.Data.Roles ),
-                };
+                    claims.Add(new Claim(ClaimTypes.Role, item));
+                }
+
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
                 var properties = new AuthenticationProperties()
@@ -133,19 +137,5 @@ namespace EndPoint.Site.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public List<string> UserIdentity()
-        {
-
-            List<string> userClaims = new List<string>();
-            int i = 0;
-            foreach (var claim in User.Claims)
-            {
-                userClaims.Add(claim.ToString());
-
-            }
-
-            return userClaims;
-
-        }
     }
 }

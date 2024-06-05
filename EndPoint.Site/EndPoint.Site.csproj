@@ -23,6 +23,8 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\AdminTemplate\app-assets\vendors\css\tables\" />
+    <Folder Include="wwwroot\Images\HomePages\Sliders\" />
+    <Folder Include="wwwroot\Images\ProductImages\" />
     <Folder Include="wwwroot\SiteTemplate\assets\images\menu-main\card\" />
   </ItemGroup>
 

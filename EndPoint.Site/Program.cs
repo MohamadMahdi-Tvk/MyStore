@@ -22,6 +22,9 @@ using MyStore.Persistence.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
+
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy(UserRoles.Admin, policy => policy.RequireRole(UserRoles.Admin));

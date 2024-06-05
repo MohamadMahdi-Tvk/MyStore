@@ -12,9 +12,14 @@ namespace EndPoint.Site.Utilities
         {
             try
             {
-                var claimsIdentity = User.Identity as ClaimsIdentity;
-                long userId = long.Parse(claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value);
-                return userId;
+                if (User.Identity.IsAuthenticated)
+                {
+                    var claimsIdentity = User.Identity as ClaimsIdentity;
+                    long userId = long.Parse(claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value);
+                    return userId;
+                }
+
+                return null;
             }
             catch (Exception)
             {
@@ -22,15 +27,15 @@ namespace EndPoint.Site.Utilities
                 return null;
             }
 
-        }   
-        
-        
+        }
+
+
         public static string GetUserEmail(ClaimsPrincipal User)
         {
             try
             {
                 var claimsIdentity = User.Identity as ClaimsIdentity;
-                
+
                 return claimsIdentity.FindFirst(ClaimTypes.Email).Value;
             }
             catch (Exception)
@@ -54,7 +59,7 @@ namespace EndPoint.Site.Utilities
                 }
                 return rolse;
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return null;
             }

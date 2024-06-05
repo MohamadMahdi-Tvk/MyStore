@@ -9,6 +9,6 @@ namespace MyStore.Application.Services.Users.Commands.UserLogin
 {
     public interface IUserLoginService
     {
-        ResultDto<ResultUserLoginDto> Execute(string userName, string password);
+        ResultDto<ResultUserloginDto> Execute(string Username, string Password);
     }
 }

@@ -12,13 +12,14 @@ namespace MyStore.Application.Services.Users.Commands.UserLogin
         {
             _context = context;
         }
-        public ResultDto<ResultUserLoginDto> Execute(string userName, string password)
+        public ResultDto<ResultUserloginDto> Execute(string Username, string Password)
         {
-            if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
+
+            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
             {
-                return new ResultDto<ResultUserLoginDto>()
+                return new ResultDto<ResultUserloginDto>()
                 {
-                    Data = new ResultUserLoginDto()
+                    Data = new ResultUserloginDto()
                     {
 
                     },
@@ -32,15 +33,15 @@ namespace MyStore.Application.Services.Users.Commands.UserLogin
             var user = _context.Users
                 .Include(p => p.UserInRoles)
                 .ThenInclude(p => p.Role)
-                .Where(p => p.Email.Equals(userName)
+                .Where(p => p.Email.Equals(Username)
             && p.IsActive == true)
             .FirstOrDefault();
 
             if (user == null)
             {
-                return new ResultDto<ResultUserLoginDto>()
+                return new ResultDto<ResultUserloginDto>()
                 {
-                    Data = new ResultUserLoginDto()
+                    Data = new ResultUserloginDto()
                     {
 
                     },
@@ -50,12 +51,12 @@ namespace MyStore.Application.Services.Users.Commands.UserLogin
             }
 
             var passwordHasher = new PasswordHasher();
-            bool resultVerifyPassword = passwordHasher.VerifyPassword(user.Password, password);
+            bool resultVerifyPassword = passwordHasher.VerifyPassword(user.Password, Password);
             if (resultVerifyPassword == false)
             {
-                return new ResultDto<ResultUserLoginDto>()
+                return new ResultDto<ResultUserloginDto>()
                 {
-                    Data = new ResultUserLoginDto()
+                    Data = new ResultUserloginDto()
                     {
 
                     },
@@ -65,16 +66,16 @@ namespace MyStore.Application.Services.Users.Commands.UserLogin
             }
 
 
-            var roles = "";
+            List<string> roles = new List<string>();
             foreach (var item in user.UserInRoles)
             {
-                roles += $"{item.Role.Name}";
+                roles.Add(item.Role.Name);
             }
 
 
-            return new ResultDto<ResultUserLoginDto>()
+            return new ResultDto<ResultUserloginDto>()
             {
-                Data = new ResultUserLoginDto()
+                Data = new ResultUserloginDto()
                 {
                     Roles = roles,
                     UserId = user.Id,
